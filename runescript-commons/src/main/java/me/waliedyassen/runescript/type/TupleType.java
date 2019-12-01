@@ -47,10 +47,12 @@ public final class TupleType implements Type {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof TupleType)) {
-            return false;
+        if (flattened.length == 1 && obj instanceof Type) {
+            return flattened[0].equals((Type) obj);
+        } else if (obj instanceof TupleType) {
+            return Arrays.equals(flattened, ((TupleType) obj).flattened);
         }
-        return Arrays.equals(flattened, ((TupleType) obj).flattened);
+        return false;
     }
 
     /**
